@@ -5,6 +5,11 @@
 
 - import_tasks: check_vars.yml
 
+- set_fact:
+    sb_app_state="{% if ansible_hostname in sb_hosts %}present{% else %}absent{% endif %}"
+  when: >
+    sb_hosts
+
 - name: Set application destination folder
   set_fact:
     sb_app_artifact_destination_folder: "{{ sb_applications_root_folder }}/{{ sb_app_name | upper }}/{{ sb_app_version }}"
